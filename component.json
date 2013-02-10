@@ -2,7 +2,7 @@
   "name": "flatten",
   "repo": "dworthen/flatten",
   "description": "flattens a javascript object",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": [
     "flatten",
     "Object"
