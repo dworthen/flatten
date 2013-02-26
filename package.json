@@ -1,5 +1,5 @@
 {
-  "name": "flatten",
+  "name": "flatten-component",
   "version": "0.0.2",
   "description": "flattens objects",
   "main": "index.js",
