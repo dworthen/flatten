@@ -1,0 +1,24 @@
+{
+  "name": "flatten",
+  "version": "0.0.2",
+  "description": "flattens objects",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dworthen/flatten.git"
+  },
+  "keywords": [
+    "flatten",
+    "object"
+  ],
+  "author": "Derek Worthen",
+  "license": "BSD",
+  "gitHead": "dc404ff06b42f7ca2db6fed38d3281d99c914dba",
+  "readmeFilename": "Readme.md"
+}
