@@ -1,45 +1,29 @@
 var flatten = module.exports = function (obj, options) {
-  var _into = obj; // = options && !options.clone ? obj : options.into || {};
-  var _prefix = (options && options.prefix) ? options.prefix : "";
-  var _seperator = (options && options.seperator) ? options.seperator : '.';
-  var _ignoreArrays = (options && options.ignoreArrays) ? true : false;
+    if(!obj) return undefined;
 
-  if (options && options.clone) {
-    _into = options.into || {};
-  } 
+    options = options || {};
 
-  var opts = {
-    into: _into,
-    clone: true,
-    seperator: _seperator,
-    ignoreArrays: _ignoreArrays
-  };
+    var _into = options.into || {}
+        , _prefix = options.prefix || ''
+        , opts = {
+            prefix: _prefix,
+            into: _into,
+            ignoreArrays: options.ignoreArrays ? true : false
+        };
 
-  // console.log('into: %s, pre: %s, sep: %s, ig: %s',_into, _prefix, _seperator, _ignoreArrays);
-
-  for (var k in obj) {
-    opts.prefix = _prefix + k + _seperator;
-    if (obj.hasOwnProperty(k)) {
-      var prop = obj[k];
-      if (prop && typeof prop === "object" &&
-        !(prop instanceof Date || prop instanceof RegExp)) {
-          if(_ignoreArrays) {
-            if(!(prop instanceof Array)) {
-              flatten(prop, opts);
+    for(var key in obj) {
+        var newKey = opts.prefix = (_prefix + key + '.').replace(/\.(\d+)\./g, '[$1]');
+        if (obj.hasOwnProperty(key)) {
+            var prop = obj[key];
+            if(prop && typeof prop === 'object' &&
+                !(prop instanceof Date || prop instanceof RegExp) &&
+                !(opts.ignoreArrays && prop instanceof Array)) {
+                flatten(prop, opts);
             } else {
-              _into[_prefix + k] = prop;
+                _into[newKey.replace(/\.$/, '')] = prop;
             }
-          } else {
-            flatten(prop, opts);  
-          }
-      }
-      else {
-        _into[_prefix + k] = prop;
-      }
+        }
     }
-  }
-
-  // console.log(_into);
 
   return _into;
-}
+};

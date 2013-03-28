@@ -7,24 +7,26 @@
 	<script type="text/javascript">
 
 		function printObj (obj, text) {
-			console.log(text)
+			console.log(text);
 			for(var key in obj) {
-				console.log(key + ': ' + obj[key]);
-			}
+                console.log(key + ': ' + obj[key]);
+            }
 		}
 
+
 		function setObj () {
-			var obj = {
-				one: 'one',
-				two: {
-					three: 'whatever',
-					four: {
-						five: 'cool',
-						six: 'not'
-					},
-					seven: ['an', 'array']
-				}
-			};
+			var obj;
+            obj = {
+                one: 'one',
+                two: {
+                    three: 'whatever',
+                    four: {
+                        five: 'cool',
+                        six: 'not'
+                    },
+                    seven: ['an', 'array']
+                }
+            };
 			return obj;
 		}
 
@@ -41,41 +43,26 @@
 		var opts = {};
 
 		// Simple flatten
-		flatten(obj);
-		printObj(obj, 'Simple flatten, manipulate object directly');
-		obj = setObj();
+		var flattenedObj = flatten(obj);
+		printObj(flattenedObj, 'Simple flatten.');
 
-		// Does not affect original object
-		var newObj = flatten(obj, {clone: true}); // clones the object
-		printObj(obj, 'not affected');
-		printObj(newObj, 'Flattened obj');
-		obj = setObj();
+        // Manipulate the original object directly
+        flatten(obj, {into: obj});
+        printObj(obj, 'Manipulate original object directly.');
+        obj = setObj();
 
-		// // Flattens one obj into another.
-		flatten(obj, {clone: true, into: anotherObj}); // must specify to clone the object.
-		printObj(anotherObj, 'Flatten an object into another object');
-		obj = setObj();
+        // Ignore Arrays.
+        flattenedObj = flatten(obj, {ignoreArrays: true});
+        printObj(flattenedObj, 'Ignoring Arrays.');
 
-		// // Change the seperator 
-		flatten(obj, {seperator: "-"});
-		printObj(obj, 'Seperator is now a hyphen');
-		obj = setObj();
-
-		// // Set a prefix on first iteration
-		// // Prefix is used for recursive calls but we can define it on the first run
-		flatten(obj, {prefix: "flat-"});
-		printObj(obj, 'Has a prefix');
-		obj = setObj();
-
-		// Ignore Arrays
-		flatten(obj, {ignoreArrays: true});
-		printObj(obj, 'Arrays are left alone');
-		obj = setObj();
+        // prefix the flattened keys
+        flattenedObj = flatten(obj, {prefix: 'test-'});
+        printObj(flattenedObj, 'Add a prefix.');
 
 		
 	</script>
 </head>
 <body>
-	
+
 </body>
 </html>
